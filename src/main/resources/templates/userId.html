@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Информация о пользователе</title>
+</head>
+<body>
+<form method="post" action="/logout">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value = "${_csrf.token}" >
+  <button type="submit" >Выйти из личного кабинета</button>
+</form>
+<br>
+<a href="/admin">Назад в личный кабинет</a>
+<br>
+<a href="/admin/userAll">Назад к списку пользователей</a>
+<hr>
+<br>
+<h3>Информация о пользователе: </h3>
+<p th:text="'Логин: ' + ${user.getLogin()}"></p>
+<p th:text="'ID пользователя: ' + ${user.getId()}"></p>
+<p th:text="'Роль пользователя: ' + ${user.getRole}"></p>
+<div th:if="${!user.getRole().equals('ROLE_ADMIN')}">
+  <form th:method="post" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
+
+    <label for="role">Изменить роль пользователя: </label>
+    <select name="role" th:field="*{role}" id="role">
+      <option th:text="${role[1]}" th:value="${role[1]}"></option>
+      <option th:text="${role[2]}" th:value="${role[2]}"></option>
+      <option th:text="${role[0]}" th:value="${role[0]}"></option>
+    </select>
+    <input type="submit" value="Изменить">
+  </form>
+</div>
+</body>
+</html>
