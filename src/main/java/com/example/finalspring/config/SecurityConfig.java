@@ -29,12 +29,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests() // указываем что все страницы должны защищены аутентификацией
                 .requestMatchers("/admin").hasRole("ADMIN") //страница admin доступка только с ролью admin
                 //permitAll допускает не авторезированных пользователей кроме перечисленных
-                .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/product", "/product/info/{id}", "/product/search").permitAll()
+                .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**", "/css/**","/images/**", "/js/**", "/img/**", "/product", "/product/info/{id}", "/product/search", "/person_account/user/search").permitAll()
                 //указываем что  для всех остальных страниц необходимо вызывать метод authenticated с формой если нет в сессии инфы
                // .anyRequest() .authenticated()
                 .anyRequest().hasAnyRole("USER", "ADMIN") // все страницы доступны только пользоватедям с этими ролями
                 .and()//настройка аутентификации и соединяем ее с настройкой доступа которая выше
-                .formLogin().loginPage("/authentication") //  указываем url для авторизации
+                .formLogin().loginPage("/product") //  указываем url для авторизации
                 .loginProcessingUrl("/process_login") // обработчик формы в Spring Security
                 .defaultSuccessUrl("/person_account",true)//url после авторизации
                 .failureUrl("/authentication?error")// url после неудачной аутентификации с выводом сообщеия о неудачи

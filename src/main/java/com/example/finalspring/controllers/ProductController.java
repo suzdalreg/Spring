@@ -72,7 +72,7 @@ public class ProductController {
         model.addAttribute("value_price_ot", ot);
         model.addAttribute("value_price_do", Do);
         return "/product/product";
-
     }
+
 
 }
